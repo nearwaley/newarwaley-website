@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-brand: #c21321;
+  --color-brand-dark: #a30f1c;
+  --color-brand-soft: #ff5a67;
+  --color-blush: #ffe4e6;
+  --color-ink: #120a0a;
+  --color-ink-2: #2b2020;
+  --color-muted: #5e5353;
+  --color-subtle: #7a6d6d;
+  --color-line: #e6dedc;
+  --color-cream: #faf6f4;
+  --color-night-line: #3a2d2d;
+  --color-night-text: #cfc4c4;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 0.84, 0.24, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-ink font-sans antialiased;
+  }
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8;
+  }
+  .eyebrow {
+    @apply text-[13px] font-semibold uppercase tracking-[0.14em];
+  }
+  .t-mega {
+    font-size: clamp(48px, 8.6vw, 136px);
+    line-height: 0.93;
+    letter-spacing: -0.05em;
+    font-weight: 700;
+  }
+  .t-h2 {
+    font-size: clamp(36px, 5.2vw, 80px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+  }
+  .t-h3 {
+    font-size: clamp(22px, 2.2vw, 30px);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+  .t-lede {
+    font-size: clamp(18px, 1.55vw, 22px);
+    line-height: 1.55;
+  }
+  .t-body {
+    @apply text-[17px] leading-[1.65];
+  }
+  .pill {
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full px-[26px] text-[15px] font-semibold transition-[transform,background-color,color] duration-300 ease-out-expo hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-60;
+  }
+  .pill-red {
+    @apply bg-brand text-white hover:bg-brand-dark;
+  }
+  .pill-white {
+    @apply bg-white text-brand hover:bg-[#fff0f1] hover:text-brand-dark;
+  }
+  .pill-line {
+    @apply border-[1.5px] border-current bg-transparent;
+  }
+  .arrow-link {
+    @apply inline-flex items-center gap-2.5 border-b-[1.5px] border-current pb-[3px] text-base font-semibold;
+  }
+}
+
+/* Marquee */
+@keyframes nw-marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+.marquee-track {
+  animation: nw-marquee 46s linear infinite;
+}
+
+/* Live dot */
+@keyframes nw-blip {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(194, 19, 33, 0.5);
+  }
+  60% {
+    box-shadow: 0 0 0 12px rgba(194, 19, 33, 0);
+  }
+}
+.blip {
+  animation: nw-blip 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track,
+  .blip {
+    animation: none;
+  }
 }

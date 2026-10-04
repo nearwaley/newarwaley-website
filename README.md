@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nearwaley — website
 
-## Getting Started
+Pre-launch marketing site for **Nearwaley** — *Never wait for help again.*
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router) · Tailwind CSS 4 · Motion (Framer Motion) · GSAP + ScrollTrigger · EmailJS · Geist font (self-hosted)
+
+## Pages
+
+| URL | Page |
+|---|---|
+| `/` | Home |
+| `/services` | Services |
+| `/why-nearwaley` | Why Nearwaley (USPs, comparison, coming soon) |
+| `/become-a-specialist` | Specialist onboarding form (first 50 free) |
+| `/investors` | Investor page + enquiry form |
+| `/about` | About us — story, vision, mission, goal |
+| `/contact` | Contact details + message form |
+
+## Run it on your computer
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then fill in the values
+npm run dev                  # open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where to change things
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Phone, address, WhatsApp, social links, "first 50 free", ₹2,000, 7 jobs** → `src/lib/site.ts`
+- **Services list** → `src/lib/site.ts` (`services`, `comingNext`)
+- **Brand colours and type sizes** → `src/app/globals.css`
+- **Logo files** → `public/brand/` · favicon → `src/app/icon.png` · social share image → `src/app/opengraph-image.png`
+- **Page copy** → `src/app/<page>/page.tsx`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Connect the forms to email (EmailJS)
 
-## Learn More
+Until this is set up, every form opens WhatsApp with the details pre-filled — so nothing is lost.
 
-To learn more about Next.js, take a look at the following resources:
+1. Sign up at [emailjs.com](https://www.emailjs.com) and **Add New Service** → connect your Gmail / business email. Copy the **Service ID**.
+2. **Email Templates → Create New Template.** Set:
+   - Subject: `New {{form_type}} — Nearwaley`
+   - Content:
+     ```
+     {{form_type}}
+     Received: {{submitted_at}}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+     {{summary}}
+     ```
+   - Reply To: `{{reply_to}}`
+   Copy the **Template ID**.
+3. **Account → General** → copy your **Public Key**.
+4. Put the three values in `.env.local` (and in Vercel → Project → Settings → Environment Variables).
+5. In EmailJS → Account → Security, add your domain to the allowed list.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+One template handles all three forms; `{{form_type}}` tells you which one it came from
+(Specialist application / Investor enquiry / Contact message).
 
-## Deploy on Vercel
+## Deploy (Vercel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push this repo to GitHub.
+2. [vercel.com/new](https://vercel.com/new) → import the repo → add the env variables → Deploy.
+3. Vercel → Project → Settings → Domains → add your domain and follow the DNS steps.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Animation notes
+
+- Headline word-by-word rise and scroll reveals: `src/components/motion.tsx` (Motion)
+- Hero radar rings: `src/components/RadiusVisual.tsx` (GSAP)
+- "Five taps" scroll-drawn line: `src/components/StepsTimeline.tsx` (GSAP ScrollTrigger)
+- About hero "lights back on": `src/components/LightsOn.tsx`
+- All animations switch off automatically when a visitor has "reduce motion" turned on.
