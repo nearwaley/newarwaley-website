@@ -6,45 +6,74 @@ export const site = {
   name: "Nearwaley",
   tagline: "Never wait for help again.",
   description:
-    "Nearwaley connects homes with verified Specialists nearby — electricians, plumbers, AC technicians, home nurses and more. Launching soon in Trivandrum.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nearwealey.com",
+    "Need an electrician, plumber, or AC technician in Trivandrum? Get verified local Specialists at your doorstep in 60 minutes — or get 20% off your bill.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.nearwaley.com",
   phoneDisplay: "+91 88488 17833",
   phoneTel: "+918848817833",
   whatsapp: "918848817833",
-  address: "Technopark Campus, Thiruvananthapuram, Keralam",
+  address: "Technopark, Thiruvananthapuram, Kerala",
   mapsUrl: "https://maps.google.com/?q=Technopark+Campus+Thiruvananthapuram",
-  // TODO: replace with real profile links
   social: {
-    instagram: "https://instagram.com/nearwaley",
-    facebook: "https://facebook.com/nearwaley",
+    instagram: "https://www.instagram.com/nearwaley/?hl=en",
+    facebook: "https://www.facebook.com/profile.php?id=61595174489628",
     linkedin: "https://www.linkedin.com/company/nearwaley",
   },
   freeSpots: 50,
-  onboardingFee: "₹2,000",
+  onboardingFee: "₹1,500",
   cashbackAfterJobs: 7,
 } as const;
 
 export const whatsappLink = (text?: string) =>
   `https://wa.me/${site.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
+/** Main nav – anchor links for the one-page site */
 export const nav = [
-  { href: "/services", label: "Services" },
-  { href: "/why-nearwaley", label: "Why Nearwaley" },
-  { href: "/become-a-specialist", label: "Become a Specialist" },
-  { href: "/investors", label: "Investors" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#services", label: "Services" },
+  { href: "/#how-it-works", label: "How It Works" },
+  { href: "/#why-nearwaley", label: "Why Nearwaley" },
+  { href: "/#specialists", label: "For Specialists" },
+  { href: "/#journey", label: "Our Journey" },
 ] as const;
 
+/** Launch services shown with full cards */
+export const launchServices = [
+  {
+    name: "Electricians",
+    icon: "electric",
+    tagline: "Faults, wiring, fittings, monsoon power cuts",
+    live: true,
+  },
+  {
+    name: "Plumbers",
+    icon: "plumber",
+    tagline: "Leaks, blockages, fittings",
+    live: true,
+  },
+  {
+    name: "AC & Appliance Repair",
+    icon: "ac",
+    tagline: "Servicing, gas, breakdowns in the summer heat",
+    live: true,
+  },
+  {
+    name: "House Cleaning",
+    icon: "cleaning",
+    tagline: "Deep cleans, festival cleans",
+    live: false,
+  },
+  {
+    name: "Carpenters",
+    icon: "carpenter",
+    tagline: "Repairs, fittings, furniture",
+    live: false,
+  },
+] as const;
+
+/** Legacy services array for backwards compat */
 export const services = [
   { name: "Electrician", line: "Lights out? Sorted.", jobs: ["Switches & sockets", "Fans & lights", "Wiring", "MCB & fuse trips", "Inverter connection"] },
   { name: "Plumber", line: "Leaks, stopped.", jobs: ["Taps & pipes", "Blocked drains", "Tank & motor", "Bathroom fittings"] },
   { name: "AC repair", line: "Cool, again.", jobs: ["Service", "Gas top-up", "Not cooling", "Installation"] },
-  { name: "Fridge repair", line: "Save the milk.", jobs: ["Not cooling", "Gas refill", "Thermostat & parts"] },
-  { name: "Washing machine", line: "Spinning by evening.", jobs: ["Drum & motor", "Drain problems", "Installation"] },
-  { name: "Home nurse", line: "Care, at home.", jobs: ["Elderly care", "Dressings & injections", "Post-hospital support"] },
-  { name: "Home cleaning", line: "Guests at six? Done.", jobs: ["Bathroom", "Kitchen", "Full home deep clean"] },
-  { name: "Carpenter", line: "Squeaks, sticks, wobbles.", jobs: ["Doors & locks", "Furniture", "Shelves & fittings"] },
 ] as const;
 
-export const comingNext = ["Coconut climber", "Painter", "CCTV", "RO purifier", "Water tank cleaning", "Driver"] as const;
+export const comingNext = ["House Cleaning", "Carpenters", "Painter", "CCTV", "RO purifier"] as const;

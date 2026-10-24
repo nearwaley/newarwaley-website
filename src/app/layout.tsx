@@ -9,24 +9,26 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
+    default: "Nearwaley — 60-Min Hyperlocal Home Services in Trivandrum",
     template: `%s | ${site.name}`,
   },
   description: site.description,
   applicationName: site.name,
   keywords: [
     "home services Trivandrum",
+    "home services Thiruvananthapuram",
     "electrician near me Trivandrum",
     "plumber Trivandrum",
     "AC repair Thiruvananthapuram",
-    "home nurse Trivandrum",
+    "verified home Specialists Trivandrum",
+    "60 minute home services Kerala",
     "Nearwaley",
   ],
   openGraph: {
     type: "website",
     siteName: site.name,
     locale: "en_IN",
-    title: `${site.name} — ${site.tagline}`,
+    title: "Nearwaley — 60-Min Hyperlocal Home Services in Trivandrum",
     description: site.description,
   },
   twitter: { card: "summary_large_image" },
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#c21321",
+  themeColor: "#E10600",
 };
 
 const orgJsonLd = {
@@ -58,6 +60,11 @@ const orgJsonLd = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={GeistSans.variable}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600&display=swap" rel="stylesheet" />
+      </head>
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
@@ -70,7 +77,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
-        <WhatsAppButton />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd).replace(/</g, "\\u003c") }}

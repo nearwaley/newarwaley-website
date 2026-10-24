@@ -19,7 +19,11 @@ export function PageHero({
         <Reveal>
           <p className="eyebrow text-brand">{eyebrow}</p>
         </Reveal>
-        <SplitHeadline text={title} accent={accent} className="t-mega max-w-[1180px]" />
+        <SplitHeadline
+          text={title}
+          accent={accent}
+          className="t-mega max-w-[1180px]"
+        />
         {children && <Reveal delay={0.35}>{children}</Reveal>}
       </div>
     </section>
